@@ -3,9 +3,9 @@ package io.github.haykam821.sculkprison;
 import io.github.haykam821.sculkprison.game.SculkPrisonConfig;
 import io.github.haykam821.sculkprison.game.phase.SculkPrisonWaitingPhase;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.Block;
-import net.minecraft.tag.Tag;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import xyz.nucleoid.plasmid.game.GameType;
 
@@ -16,7 +16,7 @@ public class Main implements ModInitializer {
 	public static final GameType<SculkPrisonConfig> SCULK_PRISON_TYPE = GameType.register(SCULK_PRISON_ID, SculkPrisonConfig.CODEC, SculkPrisonWaitingPhase::open);
 
 	private static final Identifier WARDEN_CAGE_BREAK_BLOCKS_ID = new Identifier(MOD_ID, "warden_cage_break_blocks");
-	public static final Tag<Block> WARDEN_CAGE_BREAK_BLOCKS = TagFactory.BLOCK.create(WARDEN_CAGE_BREAK_BLOCKS_ID);
+	public static final TagKey<Block> WARDEN_CAGE_BREAK_BLOCKS = TagKey.of(Registries.BLOCK.getKey(), WARDEN_CAGE_BREAK_BLOCKS_ID);
 
 	@Override
 	public void onInitialize() {

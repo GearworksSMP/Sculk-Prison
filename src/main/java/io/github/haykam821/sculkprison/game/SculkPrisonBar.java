@@ -3,13 +3,12 @@ package io.github.haykam821.sculkprison.game;
 import io.github.haykam821.sculkprison.game.phase.SculkPrisonActivePhase;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import xyz.nucleoid.plasmid.game.common.GlobalWidgets;
 import xyz.nucleoid.plasmid.game.common.widget.BossBarWidget;
 
 public class SculkPrisonBar {
-	private static final Text CAGE_LOCKED_TEXT = new TranslatableText("text.sculkprison.cage_locked");
-	private static final Text CAGE_UNLOCKED_TEXT = new TranslatableText("text.sculkprison.cage_unlocked");
+	private static final Text CAGE_LOCKED_TEXT = Text.translatable("text.sculkprison.cage_locked");
+	private static final Text CAGE_UNLOCKED_TEXT = Text.translatable("text.sculkprison.cage_unlocked");
 
 	private final BossBarWidget bar;
 

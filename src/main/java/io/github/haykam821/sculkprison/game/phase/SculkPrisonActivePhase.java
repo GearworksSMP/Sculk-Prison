@@ -18,7 +18,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -106,7 +105,7 @@ public class SculkPrisonActivePhase implements PlayerAttackEntityEvent, GameActi
 	@Override
 	public ActionResult onAttackEntity(ServerPlayerEntity attacker, Hand hand, Entity attacked, EntityHitResult hitResult) {
 		if (attacker.equals(this.warden) && attacked instanceof ServerPlayerEntity) {
-			this.eliminate((ServerPlayerEntity) attacked, new TranslatableText("text.sculkprison.eliminated.warden", attacked.getDisplayName(), attacker.getDisplayName()), true);
+			this.eliminate((ServerPlayerEntity) attacked, Text.translatable("text.sculkprison.eliminated.warden", attacked.getDisplayName(), attacker.getDisplayName()), true);
 		}
 		return ActionResult.FAIL;
 	}
@@ -200,7 +199,7 @@ public class SculkPrisonActivePhase implements PlayerAttackEntityEvent, GameActi
 
 
 	private void eliminate(ServerPlayerEntity player, String suffix, boolean remove) {
-		this.eliminate(player, new TranslatableText("text.sculkprison.eliminated" + suffix, player.getDisplayName()).formatted(Formatting.RED), remove);
+		this.eliminate(player, Text.translatable("text.sculkprison.eliminated" + suffix, player.getDisplayName()).formatted(Formatting.RED), remove);
 	}
 
 	/**
@@ -219,7 +218,7 @@ public class SculkPrisonActivePhase implements PlayerAttackEntityEvent, GameActi
 	}
 
 	private void endWithNoWinners() {
-		this.gameSpace.getPlayers().sendMessage(new TranslatableText("text.sculkprison.no_winners").formatted(Formatting.RED));
+		this.gameSpace.getPlayers().sendMessage(Text.translatable("text.sculkprison.no_winners").formatted(Formatting.RED));
 		this.gameSpace.close(GameCloseReason.FINISHED);
 	}
 
