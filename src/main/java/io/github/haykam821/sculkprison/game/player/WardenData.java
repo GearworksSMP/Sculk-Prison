@@ -64,6 +64,7 @@ public class WardenData implements Vibrations {
 	public void initialize() {
 		WardenInventoryManager.applyTo(player);
 		player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, StatusEffectInstance.INFINITE, 1, true, false));
+		player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, StatusEffectInstance.INFINITE, 3, true, false));
 
 		this.player.updateEventHandler(EntityGameEventHandler::onEntitySetPosCallback);
 }
@@ -185,6 +186,7 @@ public class WardenData implements Vibrations {
 		this.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5);
 
 		if (entity instanceof ServerPlayerEntity) {
+			((ServerPlayerEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 60, 3, true, true));
 			int angerIncrease = this.player.isInRange(entity, 30) ? ANGRINESS_INCREASE : MINOR_ANGRINESS_INCREASE;
 			this.addAnger(entity, angerIncrease, true);
 		} else {

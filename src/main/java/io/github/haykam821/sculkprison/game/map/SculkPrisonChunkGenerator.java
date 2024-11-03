@@ -16,7 +16,6 @@ import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructureTemplateManager;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
-import net.minecraft.structure.pool.alias.StructurePoolAliasLookup;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -62,7 +61,7 @@ public final class SculkPrisonChunkGenerator extends GameChunkGenerator {
 		Structure.Context context = new Structure.Context(registryManager, this, this.getBiomeSource(), noiseConfig, structureManager, random, seed, chunkPos, heightLimitView, biome -> true);
 		RegistryEntry<StructurePool> structurePool = registryManager.get(RegistryKeys.TEMPLATE_POOL).getEntry(PRISON_STARTS).orElseThrow();
 
-		StructurePosition structurePosition = StructurePoolBasedGenerator.generate(context, structurePool, Optional.empty(), MAX_DEPTH, ORIGIN, false, Optional.empty(), MAX_DISTANCE_FROM_CENTER, StructurePoolAliasLookup.EMPTY).orElseThrow();
+		StructurePosition structurePosition = StructurePoolBasedGenerator.generate(context, structurePool, Optional.empty(), MAX_DEPTH, ORIGIN, false, Optional.empty(), MAX_DISTANCE_FROM_CENTER).orElseThrow();
 		this.addStructurePieces(structurePosition.generate().toList().pieces());
 	}
 

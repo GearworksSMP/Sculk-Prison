@@ -14,6 +14,8 @@ import io.github.haykam821.sculkprison.game.player.WardenData;
 import io.github.haykam821.sculkprison.game.player.WinTeam;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -48,8 +50,10 @@ public class SculkPrisonActivePhase implements WardenDataListener, PlayerAttackE
 	private final boolean singleplayer;
 
 	private int lockTime;
+	private int glowTime;
 	private int surviveTime;
 	private int ticksUntilClose = -1;
+	private final int glowTickRate = 600;
 
 	public SculkPrisonActivePhase(GameSpace gameSpace, ServerWorld world, SculkPrisonMap map, SculkPrisonConfig config, List<ServerPlayerEntity> players, GlobalWidgets widgets) {
 		this.world = world;
@@ -63,6 +67,7 @@ public class SculkPrisonActivePhase implements WardenDataListener, PlayerAttackE
 		this.singleplayer = this.players.size() == 1;
 
 		this.lockTime = this.config.getLockTime();
+		this.glowTime = glowTickRate;
 		this.surviveTime = this.config.getSurviveTime();
 	}
 
@@ -147,6 +152,16 @@ public class SculkPrisonActivePhase implements WardenDataListener, PlayerAttackE
 		} else if (this.lockTime == 0) {
 			this.unlockCage();
 			this.bar.changeToSurvive();
+		}
+
+		this.glowTime -= 1;
+		if (this.glowTime < 0) {
+			Iterator<ServerPlayerEntity> iterator = this.players.iterator();
+			while (iterator.hasNext()) {
+				ServerPlayerEntity player = iterator.next();
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 40, 3, true, true));
+			}
+			this.glowTime = this.glowTickRate;
 		}
 
 		this.bar.tick(this);
