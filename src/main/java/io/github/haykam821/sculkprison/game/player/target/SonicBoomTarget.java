@@ -48,7 +48,11 @@ public abstract class SonicBoomTarget {
 	}
 
 	public void destroy() {
+		if (this.holder.getAttachment() != null) {
+			this.holder.getAttachment().destroy();
+		}
 		this.holder.destroy();
+		this.attachment.destroy();
 	}
 
 	public abstract Vec3d getPos();

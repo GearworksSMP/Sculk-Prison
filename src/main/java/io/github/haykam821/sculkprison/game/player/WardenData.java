@@ -188,8 +188,8 @@ public class WardenData implements Vibrations {
 
 			if (entity == target.getEntity()) {
 				target.destroy();
-				iterator.remove();
 			}
+			iterator.remove();
 		}
 	}
 
